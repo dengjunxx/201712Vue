@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.css">
+</head>
+<body>
+   <div id="app">
+       <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th class="text-center">商品名称</th>
+                            <th class="text-center">商品价格</th>
+                            <th class="text-center">操作</th>
+                        </tr>
+                        <tr v-for="item in products">
+                            <td>{{item.name}}</td>
+                            <td>{{item.price}}</td>
+                            <td>
+                                <button class="btn btn-danger btn-xs" @click="remove(item)">删除</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <button class="btn btn-danger pull-right" @click="removeAll">全部删除</button></td>
+                        </tr>
+                    </table>
+                    <form>
+                        <div class="form-group">
+                            <label for="productName">商品名称</label>
+                            <input type="text" id="productName" placeholder="请输入商品名称" class="form-control" v-model="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="productPrice">商品价格</label>
+                            <input type="text" id="productPrice" placeholder="请输入商品价格" class="form-control" v-model="price">
+                        </div>
+                        <div class="form-group">
+                            <input type="button" class="btn btn-info" value="添加" @click="add">
+                            <input type="reset" class="btn btn-warning" value="重置">
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+       </div>
+   </div>
+
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            name:"",
+            price:"",
+            products:[]    //[{name:"11",price:"22"},{name:"22",price:"33"}]
+        },
+        methods:{
+            //牢牢记住，改变数据->视图自动更新
+            add(){
+              this.products.push({name:this.name,price:this.price});
+              this.name=this.price="";
+            },
+            remove(item){
+                this.products = this.products.filter(p=>{
+                   return p!=item
+               })
+            },
+            removeAll(){
+                this.products = [];
+            }
+        }
+    })
+
+    //1.写页面结构
+    //2.确定需要哪些数据
+    //3.确定绑定方法
+    //4.处理数据这块逻辑
+
+</script>

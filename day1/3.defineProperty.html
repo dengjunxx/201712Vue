@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    let obj = {};
+    /*Object.defineProperty(obj,"name",{
+        value:"lily",
+        configurable:false,//是否可删除
+        enumerable:false, //是否可枚举 可以可以通过for..in....遍历出来
+        writable:false //是否可修改
+    });*/
+    Object.defineProperty(obj,"name",{
+        get(){ //第一次浏览器一加载就执行，后期name属性发生变化时会重新获取
+          return "lily"
+        },
+        set(val){ //设置属性值时会调用set
+            console.log(val)
+        }
+    })
+    //console.log(obj.name);
+    obj.name = "lucy"
+</script>

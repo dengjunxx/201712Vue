@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--<ul>-->
+        <!--v-for 遍历数组 in或of都可以-->
+        <!--<li v-for="item in arr">
+            {{item}}
+        </li>-->
+
+        <!--对象直接通过属性名获取-->
+        <!--<li>{{obj.name}}</li>-->
+        <!--<li>{{obj.age}}</li>-->
+        <!--<li v-for="(value,key) in obj">-->
+            <!--{{key}}: {{value}}-->
+        <!--</li>-->
+
+            <!--遍历数字-->
+            <!--<li v-for="(s,k) in 20">-->
+                <!--{{k}}{{s}}-->
+            <!--</li>-->
+        <!--</ul>-->
+
+    <!--重点-->
+    <ul>
+        <li v-for="(item,index) in products">
+            {{item.name}}
+            <ul>
+                <li v-for="c in item.color">
+                    {{c}}
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            arr:[11,22,33,44],
+            obj:{name:"zf",age:8},
+            products:[{name:"苹果",color:["green","red"]},{name:"橘子",color:["orange","yellow"]},{name:"香蕉",color:["black","blue","yellow"]}]
+        }
+    })
+</script>

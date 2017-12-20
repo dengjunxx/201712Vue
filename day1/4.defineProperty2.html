@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" id="input1" >
+</body>
+</html>
+<script>
+    let  obj = {};//数据
+    let temp = {name:"lily"};//借助中间对象
+    let input1 = document.getElementById("input1");//视图
+    Object.defineProperty(obj,"name",{
+        get(){
+            return temp.name
+        },
+        set(val){
+            temp.name = val;
+            input1.value = val;
+        }
+    });
+    input1.value = obj.name;
+    input1.addEventListener("input",function(){
+        obj.name = this.value;
+        console.log(obj.name);
+    },false);
+
+    //get() 第一次是浏览器渲染页面时调用 以后name属性值发生改变时都会再重新获取
+    //set(val) 设置属性值时调用 val就是设置的这个属性值
+</script>

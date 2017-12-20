@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="msg" @keydown.enter="fn">
+    <ul>
+        <li v-for="item in list">
+            {{item}}
+            <button @click="remove(item)">删除</button>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            msg:"",
+            list:[]
+        },
+        methods:{
+            fn(){
+                this.list.push(this.msg);
+                this.msg = '';
+            },
+            remove(item){
+                //筛选出满足条件的成员 尽量不要操作DOM,只操作数据就行
+                this.list = this.list.filter(listItem=>listItem!=item);
+            }
+        }
+    })
+
+
+</script>

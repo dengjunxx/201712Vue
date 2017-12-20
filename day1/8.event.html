@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--@代替v-on: 加()需要传参数 事件对象 $event(可以不传，根据需要传或不传)-->
+    <div @click="fn($event,'zfpx')">{{msg}}</div>
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            msg:"hello"
+        },
+        methods:{ //方法同样也被实例代理
+            fn(e,val){ //方法名不能跟data里的变量名一样
+              //this 指的是实例
+                //this.msg = "hello zfpx";
+                //console.log(e.target.tagName);可以通过这种方式获取到操作的DOM元素
+                this.msg = val;
+            }
+            /*fn:()=>{  禁止使用箭头函数
+                console.log(this);//函数定义所在的作用域的this
+            }*/
+        }
+    })
+    console.log(vm);
+</script>

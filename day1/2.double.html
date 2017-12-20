@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--指令 特殊含义的属性 v-model 让表单元素内容和数据同步-->
+    <!--value checked selected属性都失效-->
+    <input type="text" v-model="obj.name">
+    {{obj.name}}
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{ //数据都会被vm实例代理
+            obj:{name:"lily"} //数据要初始化
+        }
+    })
+    //vm.msg = "aa"
+     //vm.obj.name = "cccccc";
+    //vm.$set(vm.obj,"name","lucy") //响应式数据
+    //vm.obj = {name:"zfpx"}; //把整个对象都改了
+</script>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--{{}}里值会解析成普通的文本 v-text-->
+   <!-- {{msg}}和v-text包含的意义一样-->
+    <!--v-html 可以识别标签-->
+    <!--<div v-html="msg"></div>-->
+    <input type="text" v-model="name"><br>
+    {{name}}
+    <!--v-once 数据只会绑定一次-->
+    <div v-once>{{name}}</div>
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            msg:"<h1>hello</h1>",
+            name:"zfpx"
+        }
+    })
+</script>

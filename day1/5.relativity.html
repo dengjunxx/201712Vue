@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>响应式数据</title>
+</head>
+<body>
+<div id="app">
+    {{arr}}
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            arr:[11,22,33,44]
+        }
+    })
+    //操作数组本身时都不起作用
+    //vm.arr[vm.arr.length] = 777;
+    //vm.arr[0] = 777;
+    //改变数组才能起作用 push,pop,shift,unshift,reverse,sort,splice
+
+    //vm.arr.push(666);
+    //vm.arr.shift();
+    //console.log(vm.$data); //所有的数据
+    //console.log(vm.$data.arr);这样也可以
+</script>

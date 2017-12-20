@@ -1,0 +1,26 @@
+{
+  "name": "201712Vue",
+  "version": "1.0.0",
+  "description": "vue入门",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhufengpeixun/201712Vue.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhufengpeixun/201712Vue/issues"
+  },
+  "homepage": "https://github.com/zhufengpeixun/201712Vue#readme",
+  "devDependencies": {
+    "vue": "^2.5.1"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
