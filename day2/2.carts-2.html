@@ -76,7 +76,8 @@
         computed:{//computed里的属性不能跟data里的属性重名
             sum(){ //这样相当于获取这个属性值 get()  只需要获取用这种 若依赖的值没有发生改变，他获取的是之前缓存下来的数据，依赖的值发生改变才会重新获取 一定要写return
                 return  this.products.reduce((prev,next)=>{
-                    if(!next.isSelected) return prev;
+                    if(!next.isSelected) return prev;//若没有选中则不算在总价里
+
                     return prev+next.productPrice*next.productNum
                 },0)
             },
