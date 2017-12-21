@@ -13,7 +13,7 @@
                 <table class="table table-bordered">
                     <caption class="text-center text-warning">珠峰购物车</caption>
                     <tr>
-                        <th><input type="checkbox" v-model="checkAll" @change="change">全选</th>
+                        <th><input type="checkbox" v-model="checkAll" >全选</th>
                         <th>商品</th>
                         <th>单价</th>
                         <th>数量</th>
@@ -21,7 +21,7 @@
                         <th>操作</th>
                     </tr>
                     <tr v-for="product in products">
-                        <td><input type="checkbox" v-model="product.isSelected" @change="checkOne"></td>
+                        <td><input type="checkbox" v-model="product.isSelected"></td>
                         <td>
                             <img :src="product.productCover">
                             {{product.productName}}
@@ -35,7 +35,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="6">总价:{{sum()|toFixed(2)}}</td>
+                        <td colspan="6">总价:{{sum|toFixed(2)}}</td>
                     </tr>
                 </table>
             </div>
@@ -50,14 +50,12 @@
     let vm = new Vue({
         el:"#app",
         data:{
-            checkAll:false,
             products:[]
         },
         created(){//Vue初始化完成后，请求数据，钩子函数
             //钩子函数里的this都是vm实例
             axios.get("./carts.json").then(res=>{
                this.products = res.data;
-               this.checkOne();
             },err=>{
                 console.log(err);
             })
@@ -69,33 +67,38 @@
             }
         },
         methods:{
-            change(){
-                //把每个商品的isSelected值和checkAll设置成一样
-               this.products.forEach((item)=>{
-                   item.isSelected = this.checkAll;
-               })
-            },
-            checkOne(){
-                //下面全部为true,则全选按钮才会选中，下面有一个false,则全选按钮就不会选中
-                //some 有一个为true则为true
-                //every 有一个为false,则为false ,也就是全部为true时才会true
-                this.checkAll = this.products.every(item=>{
-                    return item.isSelected
-                })
-
-            },
-            sum(){
-              return  this.products.reduce((prev,next)=>{
-                   return prev+next.productPrice*next.productNum
-               },0)
-            },
             remove(product){
                this.products =  this.products.filter((item)=>{
                     return item!=product
                 })
             }
+        },
+        computed:{//computed里的属性不能跟data里的属性重名
+            sum(){ //这样相当于获取这个属性值 get()  只需要获取用这种 若依赖的值没有发生改变，他获取的是之前缓存下来的数据，依赖的值发生改变才会重新获取 一定要写return
+                return  this.products.reduce((prev,next)=>{
+                    if(!next.isSelected) return prev;
+                    return prev+next.productPrice*next.productNum
+                },0)
+            },
+            checkAll:{
+                get(){ //通过依赖其他的值获取到自身的值 this.products变化时调用get()方法重新获取
+                    if(this.products.length===0){
+                       return false;
+                    }else{
+                        return this.products.every(item=>{
+                            return item.isSelected;
+                        })
+                    }
+
+                },
+                set(val){//设置checkAll属性值调用set方法
+                    //val 指设置checkAll属性的值  通过自身的值改变别人
+                   this.products.forEach(item=>{
+                       item.isSelected = val;
+                   })
+                }
+            }
+
         }
-
-
     })
 </script>
