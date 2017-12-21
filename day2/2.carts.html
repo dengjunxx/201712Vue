@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.css">
+</head>
+<body>
+<div id="app">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <caption class="text-center text-warning">珠峰购物车</caption>
+                    <tr>
+                        <th><input type="checkbox" v-model="checkAll" @change="change">全选</th>
+                        <th>商品</th>
+                        <th>单价</th>
+                        <th>数量</th>
+                        <th>小计</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr v-for="product in products">
+                        <td><input type="checkbox" v-model="product.isSelected" @change="checkOne"></td>
+                        <td>
+                            <img :src="product.productCover">
+                            {{product.productName}}
+                        </td>
+                        <td>{{product.productPrice}}</td>
+                        <td><input type="number" v-model="product.productNum"></td>
+                        <td>{{product.productPrice*product.productNum}}</td>
+                        <td>
+                            <button class="btn btn-danger btn-xs">删除</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">总价:¥1200.00</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script src="promise/axios.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            checkAll:false,
+            products:[]
+        },
+        created(){//Vue初始化完成后，请求数据，钩子函数
+            //钩子函数里的this都是vm实例
+            axios.get("./carts.json").then(res=>{
+               this.products = res.data;
+               this.checkOne();
+            },err=>{
+                console.log(err);
+            })
+        },
+        methods:{
+            change(){
+                //把每个商品的isSelected值和checkAll设置成一样
+               this.products.forEach((item)=>{
+                   item.isSelected = this.checkAll;
+               })
+            },
+            checkOne(){
+                //下面全部为true,则全选按钮才会选中，下面有一个false,则全选按钮就不会选中
+                //some 有一个为true则为true
+                //every 有一个为false,则为false ,也就是全部为true时才会true
+                this.checkAll = this.products.every(item=>{
+                    return item.isSelected
+                })
+
+
+
+            }
+        }
+
+
+    })
+</script>
