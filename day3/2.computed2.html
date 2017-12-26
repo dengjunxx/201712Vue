@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--若输入字符的长度小于5，则出现提醒太少了，否则什么都不提醒-->
+<div id="app">
+    <input type="text" v-model="a">
+    {{msg}}
+</div>
+<!--不要对双向绑定的属性（a）计算，监听其他的属性msg,msg依赖于a的值-->
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let vm  = new Vue({
+        el:"#app",
+        data:{
+            a:""
+        },
+        computed:{//computed属性不能跟data里的重新重名
+           /*msg:{
+               get(){
+                    if(this.a.length<5){
+                        return "太少"
+                    }
+                    return "成功";
+               }
+           }*/
+           a:{
+             get(){
+                 return ""
+             },
+             set(val){
+                 if(val.length<5){
+                     this.msg ="太少了"
+                 }
+             }
+           }
+
+        }
+    })
+</script>

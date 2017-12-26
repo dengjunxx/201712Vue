@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="firstName">
+    <input type="text" v-model="lastName">
+    {{fullName}}
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let vm  = new Vue({
+        el:"#app",
+        data:{
+            firstName: 'Foo',
+            lastName: 'Bar'
+        },
+        computed:{ //监听的属性时fullName,依赖于firstName和lastName
+           fullName(){
+               return this.firstName+this.lastName
+           }
+        }
+    })
+</script>

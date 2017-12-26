@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="a">
+    {{msg}}
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let vm  = new Vue({
+        el:"#app",
+        data:{
+            a:"",
+            msg:""
+        },
+        watch:{ //监听的属性要已经在data里声明  watch支持异步 computed不支持  监听的数据变化时才执行
+            a(){//a变化时去设置其他的属性
+                this.msg = "请验证....";
+                window.setTimeout(()=>{
+                    if(this.a.length<5){
+                        this.msg ="太少了"
+                    }else{
+                        this.msg = "成功"
+                    }
+                },2000)
+
+            }
+        }
+    })
+</script>
