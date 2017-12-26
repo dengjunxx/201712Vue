@@ -7,7 +7,7 @@
 <body>
 <div id="app">
     <!--.capture.stop stop阻止事件传播 不管是从外往里还是从里往外都阻止掉-->
-    <div @click = "outer">outer
+    <div @click.capture.stop = "outer">outer
         <div @click = "center"> center
             <div @click.once = "inner">inner</div>
         </div>

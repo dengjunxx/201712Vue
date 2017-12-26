@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <button @click="flag=!flag">按钮</button>
+    <div v-show="flag">我很好~</div>
+    <div v-show="!flag">我不好~</div>
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let vm  = new Vue({
+        el:"#app",
+        data:{
+            flag:false
+        }
+    })
+</script>

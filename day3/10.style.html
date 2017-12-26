@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--<div style="color: red" :style="{fontSize:num+'px',color:'yellow'}">珠峰培训</div>-->
+    <div :style="[sty1,sty2,{background:'green'}]" >珠峰培训</div>
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let vm  = new Vue({
+        el:"#app",
+        data:{
+            num:100,
+            sty1:{fontSize:'100px'},
+            sty2:{color:'purple'}
+        }
+    })
+</script>
