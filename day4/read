@@ -1,0 +1,42 @@
+## 生命周期
+先学8个
+ beforeCreate   created
+ beforeMount    Mounted
+ beforeUpdate   updated
+ beforeDestroy  destroyed
+- new Vue
+- beforeCreate 初始化实例的方法和生命周期的钩子函数
+- created 注入响应式数据 这时data里才会数据   请求数据的操作在这边实现
+- beforeMount 确认下是否设置挂载DOM元素，有没有写template,若没有则编译outerHTML，若有则编辑template里的内容
+- mounted 把编译好的数据挂载到DOM元素，最后渲染成真实的DOM元素  若要操作DOM元素，则在mounted钩子函数里
+- beforeUpdate 数据更新前
+- updated 数据更新后
+- 手动执行vm.$destroy()
+    在销毁前 执行beforeDestroy()
+    销毁后执行 destroyed()
+    若销毁后，再更新数据，则视图不会发生改变
+
+
+###实例上的属性和方法
+- vm.$data 获取所有响应式的数据，是个对象
+- vm.$el 挂载的根DOM元素
+- vm.$options
+- vm.$refs 获取真实的DOM元素
+- vm.$nextTick DOM元素渲染完之后会调用
+- vm.$watch 监听属性变化
+- vm.$mount 挂载根DOM元素
+- vm.$destroy 销毁Vue实例
+
+### 组件化开发的好处
+- 使用模块化开发思想
+- 充分发挥代码的复用
+- 便于团队协同开发
+- 便于项目的管理和维护
+
+一个组件看成是一个完整模块（功能），包含html，css,js,页面上是由多个组件组成
+
+### 组件的使用
+- 全局组件
+- 局部组件
+- 组件嵌套
+- 组件之间传递数据

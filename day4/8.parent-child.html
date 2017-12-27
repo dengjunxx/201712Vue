@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    零钱:{{msg}}
+    <!--：不加表示传的是字符串 加上：才表示传递是动态数据，变量msg对应的值-->
+    <hello :m="msg"></hello>
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    //组件之间相互独立的，不能跨作用域获取数据
+    //父组件向子组件传递数据，是通过props属性传递
+    let hello = {
+        //props:{"m":Number},//this.m = "200"
+        props: {
+            m: {
+                type: [Number, Object, Array, Function, Boolean],
+//              default:0,
+                required: true,  //required和default不能同时设置
+                validator(val) {  //自定义的校验器
+                    return val > 600   //若不大于600则传值失败
+                }
+            }
+
+        },
+        template: "<div>hello {{m}}</div>"
+    }
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            msg: 300
+        },
+        components: {
+            hello
+        }
+    })
+</script>

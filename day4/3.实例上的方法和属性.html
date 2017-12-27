@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <div  ref="div1">11111</div>
+    <div  ref="div1">2222</div>
+    <ul ref="oUl">
+        <li v-for="a in ary" >
+            {{a}}
+        </li>
+    </ul>
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let vm  = new Vue({
+        el:"#app",
+        data:{
+            ary:[1,2,3]
+        },
+        mounted(){
+            //若有多个，只能获取一个
+            // 通过v-for遍历出的DOM可以获取多个
+            //console.log(this.$refs.div1); 后面把前面的覆盖掉了
+           // console.log(this.$refs.oLi.length); ref设置的li上
+            //console.log(this.$refs.oUl.children);// ref设置ul上
+            this.ary = [1,2,3,4];//DOM渲染是异步
+            //获取渲染完之后的DOM元素
+             this.$nextTick(()=>{ //DOM元素已经渲染完成了
+                 console.log(this.$refs.oUl.children.length);
+             })
+
+
+
+
+        }
+    })
+    console.log(vm.$options);//vue上所有的选项
+</script>

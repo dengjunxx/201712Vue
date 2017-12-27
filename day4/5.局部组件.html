@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <hello></hello>
+    <world></world>
+</div>
+
+<template id="hello1"><!--通过id名这个模板是谁-->
+    <div><div>{{msg}}</div><div>你好1</div><div>你好2</div></div>
+</template>
+<template id="world1">
+    <div>
+    <div>111</div>
+    <div>222</div>
+    <div>333</div>
+    </div>
+</template>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let vm  = new Vue({
+        el:"#app",
+        data:{},
+        components:{
+            hello:{
+              template:"#hello1" ,//把模板的id名放入对应的组件
+              data(){ //组件里的data必须写成函数，返回是一个对象
+                  return {
+                    msg:"你好"
+                  }
+              }
+            },
+            world:{
+                template:"#world1"
+            }
+        }
+    })
+</script>

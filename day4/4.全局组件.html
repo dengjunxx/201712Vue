@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--尽量里不要用自闭合 -->
+    <Hello-world></Hello-world>
+    <aaa></aaa>
+</div>
+<div id="app2">
+    <hello-world></hello-world>
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    //把自定义的标签认为是一个组件 w3c规定的标签就不能作为组件，因为有它特定的含义
+    //组件名定义的规范  1.不要有中文 2.多个字母中间以-连接,在js里写成驼峰式
+    //1.注册组件  2.设定组件的内容 template 3.在相应的地方以标签的方式放入组件
+    Vue.component("helloWorld",{
+        template:"<div>你好</div>"
+    })
+    Vue.component("aaa",{
+        template:"<div>你好1</div>"
+    })
+    //开发一些插件时会用到全局组件，大部分情况下用局部组件
+    let vm  = new Vue({
+        el:"#app",
+        data:{}
+    })
+
+    let vm1 = new Vue({
+        el:"#app2",
+        data:{}
+    })
+</script>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--父组件监听自定义事件，绑定方法 一旦子组件 通过$emit发射这个事件，则会执行自定义事件绑定的方法change（父组件的）-->
+    <child :m="msg" @more="a"></child>
+    <!--<child :m="msg" @update:m="change"></child>-->
+    <!--<child :m.sync="msg"></child>语法糖写法不推荐写-->
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let child = {
+        template:"<div>child:{{m}} <button @click='change'>变</button></div>",
+        props:['m'],   //this.m = 300 数组的方式表示不需要做验证
+        methods:{
+            change(){
+                //自己把父组件传过来的值改成3000，这样不行
+                //this.m = 3000; 不对 应该让父组件的值改变，从而子组件这边改过来
+                this.$emit("more",3000);//通过发射事件(发布事件)，把值传给父组件
+
+                //this.$emit("update:m",3000)
+            }
+        }
+    }
+    let vm  = new Vue({
+        el:"#app",
+        data:{
+            msg:300
+        },
+        components:{
+            child
+        },
+        methods:{
+            a(val){ //val就是子组件传给父组件的值
+                this.msg = val;
+            }
+        }
+    })
+</script>

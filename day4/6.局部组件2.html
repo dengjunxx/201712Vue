@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <hello></hello>  <!--第三步：使用组件-->
+</div>
+<template id="hello1">
+    <div>
+        <div>{{msg}}</div>
+        <div>111</div>
+        <div>2222</div>
+    </div>
+</template>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    //组件的步骤：1.创建组件 2.注册组件（通过components注册） 3.使用组件（在父组件里通过标签引入组件）
+    let hello = {  //第一步：创建组件
+        template:"#hello1",
+        data(){
+            return {
+                msg:"你好"
+            }
+        }
+    };
+    let vm  = new Vue({
+        el:"#app",
+        data:{},
+        components:{
+            hello   //第二步:注册组件
+        }
+    })
+</script>

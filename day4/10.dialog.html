@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        html,body{
+            margin:0;
+            padding:0;
+        }
+        html,body,#app{
+            height: 100%;
+        }
+        .mask{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left:0;
+            top:0;
+            background: rgba(0,0,0,0.3);
+        }
+        .dialog{
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            left:50%;
+            top:50%;
+            margin-left: -150px;
+            margin-top: -150px;
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <button @click="show">弹</button>
+    <modal :f = "flag" @hide="()=>flag=false"></modal>
+</div>
+<template id="modal2">
+    <div class="mask" v-show="f">
+        <div class="dialog">
+            <button @click="close">关闭</button>
+        </div>
+    </div>
+</template>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let modal = {
+        template:"#modal2",
+        props:["f"],//this.f = false
+        methods:{
+            close(){
+                this.$emit("hide")
+            }
+        }
+    }
+    let vm  = new Vue({
+        el:"#app",
+        data:{
+            flag:false
+        },
+        components:{
+            modal
+        },
+        methods:{
+            show(){
+               this.flag = true;
+            }
+        }
+    })
+</script>

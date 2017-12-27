@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    {{a}}
+    {{msg}}
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let vm  = new Vue({
+//        el:"#app",
+        data:{
+            a:1,
+            msg:"zfpx"
+        },
+       beforeCreate(){ //没啥用
+            console.log('beforeCreate')
+//           debugger;
+       },
+        created(){ //注入响应式数据 初始化完成
+           //通常请求数据的操作都在这个钩子函数里完成
+//            console.log(this);
+//            debugger
+            console.log('created');
+//            debugger;
+        },
+//        template:"<div>111</div>",  //template里的内容替换之前的app这个DOM
+        beforeMount(){ //不做什么处理
+            console.log("beforeMount");
+//            debugger;
+        },
+        mounted(){  //把vue这边编译的数据渲染成真实的DOM元素
+            console.log("mounted");
+//            debugger;
+        },
+        beforeUpdate(){//数据更新之前
+            alert("beforeUpdate");
+        },
+        updated(){//数据更新之后
+           alert('updated')
+        },
+        beforeDestroy(){//销毁之前
+            console.log('beforeDestroy');
+//            debugger;
+        },
+        destroyed(){//销毁之后 移除观察者,子组件，事件监听函数（监听数据变量） 数据变化后页面不会再变化过来
+            console.log('destroyed');
+        }
+    });
+    vm.$mount("#app");
+    vm.$destroy();
+    console.log(vm);
+</script>
