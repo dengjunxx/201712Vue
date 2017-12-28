@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<div id="app">
+
+    <router-link to="/home">首页</router-link>
+    <router-link to="/list">列表页</router-link>
+
+
+    <router-view></router-view>
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script src="vue-router.js"></script>
+<script>
+
+    let home = {
+        template:"<div>home<button @click=toList>去列表页</button></div>",
+        methods:{
+            toList(){this.$router.push("/list");}
+        }
+    };
+    let list = {
+        template:"<div >list<button @click='back'>后退一步</button></div>",
+        methods:{
+            back(){this.$router.go(-1);}
+        }
+    }
+
+    let routes = [
+        {path:"/home",component:home},
+        {path:"/list",component:list}
+    ]
+
+    let router = new VueRouter({
+
+         routes
+    })
+
+    let vm  = new Vue({
+        el:"#app",
+        router
+    })
+</script>

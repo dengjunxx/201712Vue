@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <hello>
+         <div>1111</div>
+         <h1 slot="title">标题</h1>
+         <p slot="content">内容</p>
+    </hello>
+</div>
+<!--
+slot 把hello组件中的内容放置到hello组件的模板里
+若写了插槽，会把<div>1111</div>放置到slot所在的DOM结构的位置上，并替换到slot标签-->
+<!--具名插槽，可以设置内容放置在组件模板的哪个位置-->
+<template id="hello1">
+    <div>
+        <!--具名插槽-->
+        <slot name="title"></slot>
+        hello
+        <slot name="content"></slot>
+        <slot></slot>
+    </div>
+</template>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let hello = {
+       template:"#hello1"
+    }
+    let vm  = new Vue({
+        el:"#app",
+        components:{
+            hello
+        }
+    })
+</script>

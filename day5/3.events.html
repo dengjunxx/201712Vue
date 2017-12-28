@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <hello></hello>
+    <world></world>
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let EventVm = new Vue();
+    console.log(EventVm);
+    let hello = {
+        template:"<div>hello:{{msg}} <button @click='change'>点击更改</button></div>",
+        data(){
+            return {
+                msg:"zfpx"
+            }
+        },
+        methods:{
+            change(){
+                EventVm.$emit("珠峰",this.msg);
+            }
+        },
+        created(){
+            EventVm.$on("培训",(params1)=>{
+                this.msg = params1;
+            })
+        }
+    }
+    let world = {
+        template:"<div>world:{{msg}} <button @click='fn1'>点击更改</button></div>",
+        data(){
+            return {
+               msg:"pxzf"
+            }
+        },
+        created(){
+            EventVm.$on("珠峰",(params1)=>{
+                this.msg = params1;
+            })
+        },
+        methods:{
+            fn1(){
+                EventVm.$emit("培训",this.msg)
+            }
+        }
+    }
+    let vm  = new Vue({
+        el:"#app",
+        data:{},
+        components:{
+            hello,
+            world
+        }
+    })
+</script>

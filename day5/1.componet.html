@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--父组件在监听自定义事件，一旦接受到子组件发布的自定义后，则执行绑定的方法-->
+    <hello :m="msg" @more="(val)=>msg=val"></hello>
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let hello = {
+        template:"<div>你好{{m}} <button @click='fn'>改</button></div>",
+       /* props:{
+            m:{
+                type:[String,Number,Boolean],
+//                default:0,
+                required:true,
+                validator(val){
+                    return val>5
+                }
+            }
+        }*/
+        props:['m'],
+        methods:{
+           fn(){
+              this.$emit("more",100)
+           }
+        }
+    };
+    let vm  = new Vue({
+        el:"#app",
+        data:{
+            msg:10
+        },
+        components:{
+            hello
+        }
+    })
+</script>

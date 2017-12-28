@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.css">
+</head>
+<body>
+<div id="app">
+    <panel v-for="(article,index) in arr" :key="index" :type="colors[index]">
+        <h3 slot="title">{{article.title}}</h3>
+        <div slot="content">{{article.content}}</div>
+        <div v-if="article.author">{{article.author}}</div>
+    </panel>
+</div>
+<template id="dialog">
+    <div class="panel" :class="[color]">
+        <div class="panel-heading">
+            <slot name="title"></slot>
+        </div>
+        <div class="panel-body">
+            <slot name="content"></slot>
+        </div>
+        <div class="panel-footer">
+            <slot></slot>
+        </div>
+    </div>
+</template>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let panel = {
+        template:"#dialog",
+        props:{type:String},
+        computed:{
+            color(){
+                return "panel-"+this.type;
+            }
+        }
+    };
+    let vm  = new Vue({
+        el:"#app",
+        data:{
+           colors:["success","info","warning","danger"],
+           arr:[{title:"vue介绍",content:"slot使用",author:"珠峰培训"},{title:"react介绍",content:"redux使用"},{title:"node介绍",content:"buffer流"}]
+        },
+        components:{
+            panel
+        }
+    })
+</script>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .active{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--1.设置路由的链接导航-->
+    <router-link to="/home">首页</router-link>
+    <router-link to="/list">列表页</router-link>
+
+    <!--路由的出口 指定组件放置的位置-->
+    <router-view></router-view>
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script src="vue-router.js"></script>
+<script>
+    /*1.创建路由组件*/
+    let home = {
+        template:"<div>home</div>"
+    };
+    let list = {
+        template:"<div>list</div>"
+    }
+    /*2.设置路由表 路由和组件的关系*/
+    let routes = [
+        {path:"/home",component:home},
+        {path:"/list",component:list}
+    ]
+    /*3.实例化vue-router框架里VueRouter类,把routes放入实例配置和下*/
+    /*默认是hash模式*/
+    let router = new VueRouter({
+      /*   mode:"history",*/
+        linkActiveClass:"active",/*当前点击的链接设置成active类名的样式*/
+         routes
+    })
+     /*4.router放入vue实例中*/
+    let vm  = new Vue({
+        el:"#app",
+        router  //每个组件里都有两个属性$router(调用的全是方法) 和$route(调用的全是属性)
+    })
+</script>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <button @click="fn">变</button>
+    <modal ref="dialog"></modal>
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let modal = {
+        template:"<div v-show='s'>显示模态框.....</div>",
+        data(){
+            return {
+                s:false
+            }
+        },
+        methods:{
+            hide(){
+                this.s = !this.s
+            }
+        }
+    }
+    //父组件里直接操作子组件的属性和方法，让子组件显示和隐藏
+    let vm  = new Vue({
+        el:"#app",
+        data:{
+            flag:false
+        },
+        components:{
+            modal
+        },
+        methods:{
+            fn(){
+                //获取到要操作的子组件，然后再对子组件的控制
+                //this.$refs.dialog 获取的是子组件modal
+                //console.log(this.$refs.dialog)
+                this.$refs.dialog.hide();
+            }
+        }
+    })
+</script>

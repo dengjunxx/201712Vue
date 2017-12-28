@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <router-link to="/list/1/a">列表1</router-link>
+    <router-link to="/list/2/b">列表2</router-link>
+    <router-link to="/list/3/c">列表3</router-link>
+    <router-view></router-view>
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script src="vue-router.js"></script>
+<script>
+    //模板是同一个，根据设置路由参数不一样，显示不同的内容
+    let list = {
+        template:"<div>第{{$route.params.id}} 篇文章</div>"
+    }
+    /*
+    path:/list/:id/:s
+    to:/list/1/a
+    参数部分：{id:1,s:a}
+    */
+    let routes = [
+        {path:"/list/:id/:s",component:list}
+    ]
+    let router = new VueRouter({
+        routes
+    })
+    let vm  = new Vue({
+        el:"#app",
+        router
+    })
+</script>

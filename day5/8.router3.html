@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<div id="app">
+
+    <router-link :to="{path:'/home'}">首页</router-link>
+    <router-link :to="{path:'/list'}">列表页</router-link>
+    <router-view></router-view>
+</div>
+<template id="list">
+    <div>
+
+      <router-link to="/list/detail1">列表1</router-link>
+      <router-link to="/list/detail2">列表2</router-link>
+
+       <router-view></router-view>
+    </div>
+</template>
+</body>
+</html>
+<script src="vue.js"></script>
+<script src="vue-router.js"></script>
+<script>
+    let detail1 = {
+        template:"<div>detail1</div>"
+    }
+    let detail2 = {
+        template:"<div>detail2</div>"
+    }
+
+    let home = {
+        template:"<div>home</div>",
+    };
+    let list = {
+        template:"#list",
+    };
+    let routes = [
+        {path:"",component:home},//默认显示首页
+        {path:"/home",component:home},
+        {
+            path:"/list",
+            component:list,
+            children:[//子路由下的path不能写/
+                {path:"detail1",component:detail1},
+                {path:"detail2",component:detail2}
+            ]
+
+        },
+        {path:"*",redirect:"/home"} //强制跳转到首页，路径也强制改过来
+
+    ]
+
+    let router = new VueRouter({
+         routes
+    })
+
+    let vm  = new Vue({
+        el:"#app",
+        router
+    })
+</script>

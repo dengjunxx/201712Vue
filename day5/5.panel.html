@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.css">
+</head>
+<body>
+<div id="app">
+    <!--这里所有的内容都属于父组件-->
+    <panel type="info">
+        <h3 slot="title" >Vue简介</h3>
+        <div slot="content">
+            <p>components</p>
+            <p>ref使用</p>
+            <p>slot使用</p>
+        </div>
+        <div>作者:珠峰培训 </div>
+    </panel>
+</div>
+<template id="panel">
+    <div class="panel" :class="[color]">
+        <div class="panel-heading" ref="head">
+            <slot name="title"></slot>
+            <button @click="getTitle">点击获取标题</button>
+        </div>
+        <div class="panel-body">
+            <slot name="content"></slot>
+        </div>
+        <div class="panel-footer">
+            <slot></slot>
+        </div>
+    </div>
+</template>
+</body>
+</html>
+<!--
+1.面板组件的组成部分：title content author
+2.title部分颜色是父组件传过来的，传不同的类名显示不同的颜色
+3.要有多个面板组件（根据数据确定的），但是数据全是动态获取的
+-->
+<script src="vue.js"></script>
+<script>
+    let panel = {
+        template:"#panel",
+        props:{type:String},  //"info"   "panel-"+type
+        computed:{ //重新计算一个属性->依赖于父组件传过来的值 不是直接要的数据，但是有依赖于传过来的值，这时要用computed计算下
+            color(){
+                return "panel-"+this.type
+            }
+        },
+        methods:{
+            getTitle(){
+                console.log(this.$refs.head.children[0].innerText);
+            }
+        },
+        mounted(){
+            alert(2);
+        }
+    };
+    //子组件先渲染完，然后父组件再渲染完 ->组件之间获取数据的问题
+    //在组件里获取DOM元素时，由于DOM渲染是异步的，需要时间，在一个组件里获取其他组件里的数据，为了保证都能获取，操作时统一在$nextTick函数里获取
+
+    let vm  = new Vue({
+        el:"#app",
+        data:{},
+        components:{
+            panel
+        },
+        mounted(){
+            alert(1);
+        }
+    })
+</script>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--给to赋的值是个对象，路径和参数都放在对象里 path和params不能同时设置 若要设置params则给路由设置name属性-->
+    <router-link :to="{name:'list',params:{id:1,s:'a'}}">列表1</router-link>
+    <router-link to="/list/2/b">列表2</router-link>
+    <router-link to="/list/3/c">列表3</router-link>
+    <router-view></router-view>
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script src="vue-router.js"></script>
+<script>
+    let list = {
+        template:"<div>第{{$route.params.id}} 篇文章</div>"
+    }
+    let routes = [
+        {path:"/list/:id/:s",component:list,name:"list"}
+    ]
+    let router = new VueRouter({
+        routes
+    })
+    let vm  = new Vue({
+        el:"#app",
+        router
+    })
+</script>
