@@ -1,2 +1,3 @@
-import {str,sum} from "./a.js";
-console.log(str);
+import {str,sum,obj} from "./a.js";
+import './index.css';
+console.log(obj);

@@ -34,5 +34,24 @@ npm install webpack --save-dev
                      "build":"webpack"
                    },
  3.在项目下建一个webpack.config.js文件
+ 
+ ### es6->es5
+ - babel (babel-core 核心功能包 babel-loader babel解析器)
+ npm install babel-core --save-dev
+ npm install babel-loader --save-dev  --解析js
+ 
+ 在webpack配置下js的解析器是babel-loader
+ -> {test:/\.js$/,use:"babel-loader",exclude:/node_modules/}
+  
+ presets(预设)指编译的规则,它是plugins集合
+ npm install babel-preset-es2015 --save-dev ->es6转换es5
+ npm install babel-preset-stage-0 --save-dev ->解析es7
+ 
+ 使用babel需要设置babel配置文件 .babelrc 在.babelrc设置presets和plugins
+ 
+ ### 解析CSS
+ css-loader（解析css） style-loader  (css代码放入style标签)
+ 
+ 
 
 

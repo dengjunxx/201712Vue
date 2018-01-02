@@ -7,6 +7,11 @@ module.exports = {
     output: {
         filename: "bundle.js", //打包后的文件名
         path:path.resolve("./dist") //必须写的是绝对路径
+    },
+    module: {//设置模块的解析规则
+        rules:[
+            {test:/\.js$/,use:"babel-loader",exclude:/node_modules/},
+            {test:/\.css$/,use:["style-loader","css-loader"]}
+        ]
     }
-
 }
