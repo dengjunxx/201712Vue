@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--路由的链接部分-->
+    <router-link to="/product/1">商品1</router-link>
+    <router-link to="/product/2">商品2</router-link>
+    <router-link to="/product/3">商品3</router-link>
+
+    <!--路由的出口-->
+    <router-view></router-view>
+</div>
+</body>
+</html>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script src="node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    //1.设置路由的组件
+    let product  = {
+        template:"<div>这是商品{{$route.params.id}}</div>",
+        watch:{
+            $route(){  //监听参数的变化，可以当参数发生改变时发起请求
+                console.log('发起了ajax请求')
+
+            }
+        }
+    }
+
+    //2.设置路由表
+    let routes = [
+        {path:"/product/:id",component:product}
+    ]
+    //3.引入vue-router的VueRouter类处理这个routes
+    let router = new VueRouter({
+        routes
+    })
+    //4.router放入对应的vue实例里
+    let vm = new Vue({
+        el:"#app",
+        router //$router $route
+    })
+</script>
