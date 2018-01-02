@@ -71,4 +71,9 @@ npm install webpack --save-dev
  web服务器,代码更新时，自动打包，重新加载
  在package.json里设置操作这个服务的命令
  npm run dev 
+ 
+ ### vue-loader vue-template-compiler
+ npm install vue 
+npm install vue-loader vue-template-compiler --save-dev
+vue-loader 解析.vue后缀的文件 vue-template-compiler解析vue文件里的template
 

@@ -1,5 +1,5 @@
 {
-  "name": "day6",
+  "name": "day6Webpack",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -26,6 +26,8 @@
     "less-loader": "^4.0.5",
     "style-loader": "^0.19.1",
     "url-loader": "^0.6.2",
+    "vue-loader": "^13.6.2",
+    "vue-template-compiler": "^2.5.13",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7"
   }
