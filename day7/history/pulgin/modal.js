@@ -21,7 +21,7 @@ modal.install = function(Vue,options){
 
     //4.把挂载的vm实例的DOM添加到页面上
     document.body.appendChild(vm.$el);
-    modal.el = vm.$el;
+    modal.el = vm.$el;//识别作用
 
     setTimeout(function(){
       document.body.removeChild(vm.$el);

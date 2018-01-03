@@ -1,27 +1,20 @@
 <template>
 <div>
-  <router-link to="/home">首页</router-link>
-  <router-link to="/list">列表页</router-link>
+  <!--路由的出口-->
   <router-view></router-view>
-
-  <button @click="show">点我</button>
+  <Tab></Tab>
 </div>
 </template>
 <script>
-  export default {
-    data(){
-      return {}
-    },
-    methods:{
-      show(){
-       this.$dialog("hello",{delay:1000})
-      }
-    },
-
-  }
+    import Tab from "./base/Tab.vue";
+    export default {
+        components: {
+          Tab
+        }
+    }
 
 </script>
 
-<style>
+<style scoped>
 
 </style>
