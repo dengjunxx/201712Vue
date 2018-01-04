@@ -39,7 +39,8 @@
         Object.keys(this.book).length == 0 ? this.$router.push("/list") : void 0;
       },
      async update(){
-        await updateOneBook(this.$route.params.id,this.book)
+        await updateOneBook(this.$route.params.id,this.book);
+        this.$router.push("/list");
       }
     },
     components: {

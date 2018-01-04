@@ -34,3 +34,9 @@
  
  npm install less less-loader --save-dev
  npm install axios --save-dev
+
+组件缓存
+keep-alive
+切换路由时，若这个组件的数据没有发生改变，建议让这个组件启用缓存的方式
+默认情况下，切换路由时，组件是销毁的
+有些组件缓存，有些不缓存？->路由元信息

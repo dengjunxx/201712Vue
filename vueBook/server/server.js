@@ -4,6 +4,7 @@
 let http =require("http"),
     fs = require("fs"),
     url = require("url");
+let slider = require("./sliders");
 //1.读取文件
   function read(cb){
     fs.readFile("./book.json","utf-8",function(err,books){
@@ -17,6 +18,9 @@ let http =require("http"),
   }
 
 //2.写入文件
+function write(data,cb){
+    fs.writeFile("./book.json",data,cb);
+}
 
 http.createServer(function(req,res){
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -27,6 +31,13 @@ http.createServer(function(req,res){
   //pathname 路径 query请求的参数 true 把请求参数放在对象里
   if(req.method=="OPTIONS") return res.end();
   let {pathname,query}=url.parse(req.url,true);
+  //请求轮播图数据
+  if(pathname=="/slider"){
+    res.setHeader("Content-Type","application/json;charset=utf-8");
+    res.end(JSON.stringify(slider));
+    return ;
+  }
+
   if(pathname=="/hot"){
    read(function(books){
       //处理逻辑  返回最新的8条数据
@@ -58,6 +69,24 @@ http.createServer(function(req,res){
 
         break;
       case  "POST":
+        let str2 = "";
+        req.on("data",function(chunck){
+          str2+=chunck;
+        })
+        req.on("end",function(){
+          let book = JSON.parse(str2);
+          read(function(books){
+           book.id =  books.length>0?parseInt(books[books.length-1].id)+1:1;
+            books.push(book);
+            books = JSON.stringify(books);
+            write(books, function () {
+              res.setHeader("Content-Type", "application/json;charset=utf-8");
+              res.end(books);
+            })
+          })
+        })
+
+
         break;
       case  "PUT":
         let str = "";
@@ -65,7 +94,7 @@ http.createServer(function(req,res){
         req.on("data",function(chunck){
           str+=chunck;
         })
-       //数据发送结束了，触发end
+       //数据发送结束了，触发end事件
         req.on("end",function(){
           let book = JSON.parse(str);
           read(function(books){
@@ -75,19 +104,48 @@ http.createServer(function(req,res){
               }
               return item;
             })
-            console.log(books);
-
+            books = JSON.stringify(books)
+            write(books,function(){
+              res.setHeader("Content-Type","application/json;charset=utf-8");
+              res.end(books);
+            })
           })
         })
         //修改数据的id值
         //1.获取客户端请求体里的内容
         //2.从所有的数据中找到id的这一项，把id的这一项更新成拿到的数据
+        //3.把更新后的数据重新写入book.json文件里
 
         break;
       case  "DELETE":
+        read(function(books){
+          books = books.filter(item=>{
+            return item.id!=id;
+          })
+          write(JSON.stringify(books),function(){
+            res.setHeader("Content-Type","application/json;charset=utf-8");
+            res.end(JSON.stringify({}));
+          })
+        });
         break;
     }
+    return;
   }
+
+  //读取静态的数据
+  //根据路径读取文件的信息
+  fs.stat("."+pathname,function(err,stats){
+    if(err){
+      fs.createReadStream("index.html").pipe(res);
+    }else{
+      if(stats.isDirectory()){
+        let pa = require("path").join("."+pathname+"./index.html");
+        fs.createReadStream(pa).pipe(res);
+      }else{
+        fs.createReadStream("."+pathname).pipe(res);
+      }
+    }
+  })
 
 
 

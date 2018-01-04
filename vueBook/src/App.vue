@@ -1,7 +1,14 @@
 <template>
 <div>
   <!--路由的出口-->
-  <router-view></router-view>
+  <transition name="fadeIn">
+    <keep-alive>
+      <router-view v-if="$route.meta.keepAlive"></router-view>
+    </keep-alive>
+  </transition>
+  <transition name="fadeIn">
+     <router-view v-if="!$route.meta.keepAlive"></router-view>
+  </transition>
   <Tab></Tab>
 </div>
 </template>
@@ -31,10 +38,27 @@
     color: #333;
   }
   .scroll-content{
+    width: 100%;
     height: 100%;
-    padding-top: 40px;
+    padding-top: 50px;
     padding-bottom: 50px;
+    position: absolute;
+    left:0;
+    right: 0;
     box-sizing: border-box;/*width或者height包含padding和border*/
     overflow: scroll;
+  }
+  .fadeIn-enter{
+    opacity: 0;
+  }
+  .fadeIn-enter-active{
+     transition: 0.3s linear;
+  }
+  .fadeIn-leave{
+
+  }
+  .fadeIn-leave-active{
+    transition: 0.3s linear;
+    opacity: 0;
   }
 </style>

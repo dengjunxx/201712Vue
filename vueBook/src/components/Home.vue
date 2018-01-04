@@ -1,6 +1,7 @@
 <template>
 <div class="scroll-content">
   <Header>首页</Header>
+  <Swiper :swiperSlides="swiperSlides"></Swiper>
   <div class="bookList">
     <ul>
       <li v-for="(book,index) in hotBooks" :key="index">
@@ -15,11 +16,13 @@
 </template>
 <script>
   import Header from '../base/Header.vue';
-  import {getHotBooks,a} from '../api';
+  import {getHotBooks,getSlider} from '../api';
+  import Swiper from "../base/Swiper.vue";
   export default {
       data(){
         return {
-          hotBooks:[]
+          hotBooks:[],
+          swiperSlides:[]
         }
       },
       created(){
@@ -37,10 +40,12 @@
         //语法糖
         async getHotData(){
           this.hotBooks = await  getHotBooks();
+          this.swiperSlides = await  getSlider()
+
         }
       },
         components: {
-          Header
+          Header,Swiper
         }
     }
 

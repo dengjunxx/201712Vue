@@ -28,4 +28,19 @@ export let updateOneBook = function(id,data){
   return axios.put(`/book?id=${id}`,data);
 }
 
+//删除一条数据
+export let deleteOneBook = function(id){
+   return axios.delete(`/book?id=${id}`);
+}
+
+//添加数据
+export let addBook = function(data){
+  return axios.post("/book",data);
+}
+
+//轮播图数据
+export let getSlider  = function(){
+  return axios.get("/slider");
+}
+
 
